@@ -193,11 +193,12 @@ source ~/.zshrc
 │       ├── 03_vim_basic.md
 │       ├── 04_vim_advanced.md
 │       ├── 05_file_dir.md
-│       ├── 06_network_script.md
-│       ├── 07_script_advanced.md
-│       ├── 08_permission_process.md
-│       ├── 09_practical_cmd.md
-│       ├── 10_reference.md
+│       ├── 06_network.md
+│       ├── 07_shell_script.md
+│       ├── 08_script_advanced.md
+│       ├── 09_permission_process.md
+│       ├── 10_practical_cmd.md
+│       ├── 11_reference.md
 │       └── qna/                   ← 실습 정답 파일 모음
 └── docker/
     └── linux-lab/                 ← 볼륨 마운트 경로 (컨테이너 /root/workspace 와 동기화)

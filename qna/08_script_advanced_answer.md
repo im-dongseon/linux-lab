@@ -1,4 +1,4 @@
-# ✅ 정답 (07_script_advanced.md)
+# ✅ 정답 (08_script_advanced.md)
 
 ## Q. 함수, 사용자 정의 변수, 위치 매개변수를 종합하여 시스템 사용자 추가 시뮬레이션 스크립트(create_users.sh)를 작성하세요.
 

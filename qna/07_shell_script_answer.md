@@ -1,4 +1,4 @@
-# ✅ 정답 (06_network_script.md)
+# ✅ 정답 (07_shell_script.md)
 
 ## Q. ifconfig.me를 활용해 자신의 공인 IP를 확인하고, 해당 결과를 my_ip.txt 파일로 저장하는 쉘 스크립트(get_ip.sh)를 작성해보세요.
 

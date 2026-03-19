@@ -1,4 +1,4 @@
-# ✅ 정답 (08_permission_process.md)
+# ✅ 정답 (09_permission_process.md)
 
 ## Q. sleep 100 을 & 로 실행하고, ps -ef | grep 으로 PID를 찾아 kill 해보세요.  
 
