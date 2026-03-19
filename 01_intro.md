@@ -1,3 +1,11 @@
+# Readme
+
+* 임동선
+* SK Planet, 광고개발팀
+* NHN JAPAN
+* LG 전자
+
+
 # 🌱 1.  리눅스란 무엇인가? 
 
 ## 🎯 목표
@@ -199,10 +207,10 @@ source ~/.zshrc
 
 ## 🧩 실습자료 
 
-[https://github.com/lim-dongsun/linux-lab](https://github.com/lim-dongsun/linux-lab)
+[https://github.com/im-dongseon/linux-lab](https://github.com/im-dongseon/linux-lab)
 
 ```
 mkdir -p ~/workspace/repo
 cd ~/workspace/repo
-git clone https://github.com/lim-dongsun/linux-lab.git
+git clone https://github.com/im-dongseon/linux-lab.git
 ```
