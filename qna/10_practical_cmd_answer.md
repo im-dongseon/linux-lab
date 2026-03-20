@@ -47,6 +47,18 @@ grep -rni "error" logs2
 
 * * *
 
+## Q. `sed -i`를 사용해 `users.csv`의 특정 도시 이름(예: Seoul)을 다른 도시(예: Jeju)로 치환해 보세요.
+
+## A.
+
+```bash
+sed -i 's/Seoul/Jeju/g' users.csv
+# 치환된 내용 확인
+cat users.csv
+```
+
+* * *
+
 ## Q. `view`를 사용해서 users.csv를 읽기 전용으로 열고, `less`로 big.log를 살펴본 뒤, `uptime`으로 서버 상태를 확인해보세요.
 
 ## A.

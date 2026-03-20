@@ -238,7 +238,64 @@ awk -F',' 'NR>1 && $3 >= 30 {print $2, $3}' users.csv
 
 * * *
 
-## 🧩 실습 13 — view (읽기 전용 vim)
+## 🧩 실습 13 — sed 기초 (텍스트 치환)
+
+테스트용 설정 파일 생성:
+
+```bash
+cat << 'EOF' > config.txt
+server_port=8080
+db_host=localhost
+db_port=3306
+EOF
+```
+
+### 1) 특정 문자열 치환하기
+
+```bash
+sed 's/8080/9090/' config.txt
+```
+
+- `s` : 치환(substitute)을 의미
+- `/8080/9090/` : `8080`을 찾아 `9090`으로 변경
+
+> **참고**: 위 명령어는 원본 파일을 수정하지 않고 변경된 결과만 터미널에 출력합니다.
+
+### 2) 원본 파일에 바로 적용하기 (-i)
+
+```bash
+sed -i 's/localhost/127.0.0.1/' config.txt
+cat config.txt
+```
+
+- `-i` : 원본 파일을 직접 수정 (in-place)
+
+> CI/CD 파이프라인이나 쉘 스크립트에서 설정 파일의 포트 번호, IP 주소 등을 동적으로 변경할 때 `sed`가 매우 자주 쓰입니다.
+
+### 3) awk와 sed 함께 쓰기 (파이프라인)
+
+파이프(`|`)를 사용하면 `awk`로 특정 데이터를 추출하고 `sed`로 가공/치환하는 강력한 조합을 만들 수 있습니다.  
+위에서 만든 `config.txt`를 활용해 포트 번호만 추출한 뒤 특정 문자열을 덧붙이는 예제입니다.
+
+```bash
+awk -F'=' '/port/ {print $2}' config.txt | sed 's/^/PORT: /'
+```
+
+- `awk -F'=' '/port/ {print $2}'` : `=`을 구분자로 삼아, `port`가 포함된 행에서 2번째 컬럼(숫자 부분)만 추출
+- `sed 's/^/PORT: /'` : 각 줄의 맨 앞(`^`)에 `PORT: `라는 문자열을 추가
+
+**출력 결과:**
+```
+PORT: 9090
+PORT: 3306
+```
+*(앞선 실습에서 8080을 9090으로 치환했으므로 9090이 출력됩니다.)*
+
+> 실제 로그 분석이나 장애 대응 중 **필요한 컬럼만 `awk`로 뽑아낸 후, `sed`로 불필요한 문자를 제거하거나 보기 좋게 포맷팅**하는 방식은 실무에서 가장 빈번하게 쓰이는 콤보입니다.
+
+* * *
+
+## 🧩 실습 14 — view (읽기 전용 vim)
 
 `view` 는 사실상 `vim -R` (read-only 모드)와 같다.
 
@@ -256,7 +313,7 @@ view users.csv
 
 * * *
 
-## 🧩 실습 14 — history / !! / !n / history | grep
+## 🧩 실습 15 — history / !! / !n / history | grep
 
 전체 히스토리:
 
@@ -287,7 +344,7 @@ history | grep python
 
 * * *
 
-## 🧩 실습 15 — uptime (서버 가동 시간 / 부하 확인)
+## 🧩 실습 16 — uptime (서버 가동 시간 / 부하 확인)
 
 ```bash
 uptime
@@ -306,7 +363,7 @@ uptime
 
 * * *
 
-## 🧩 실습 16 — 서비스 관리 (service + nginx)
+## 🧩 실습 17 — 서비스 관리 (service + nginx)
 
 Docker Ubuntu 환경에서는 `systemctl` 이 동작하지 않으므로  
 `service` 로 nginx 를 테스트한다.
@@ -341,7 +398,7 @@ service nginx restart
 
 * * *
 
-## 🧩 실습 17 — Docker 환경에서 nginx 띄우고 접속하기
+## 🧩 실습 18 — Docker 환경에서 nginx 띄우고 접속하기
 
 > **⚠️ 주의**: 아래의 `docker run` 명령어들은 우분투 컨테이너 내부가 아닌 **호스트(Mac/Windows 등 사용자의 로컬 터미널)에서 실행**해야 합니다. (컨테이너 안에서는 docker 명령어가 동작하지 않습니다.)
 
@@ -477,7 +534,7 @@ docker rm my-nginx
 | 파일 압축/해제 | `tar -czvf <archive.tar.gz> <dir>`, `tar -xzvf <archive.tar.gz>`, `zip -r`, `unzip` |
 | 명령어 위치 추적 | `which`, `whereis` |
 | 로그/텍스트 조회 | `less` (페이지이동), `view` (읽기전용) |
-| 필터/텍스트 처리 | `grep -rin`, `cut -d',' -f1,3`, `awk -F','` |
+| 필터/텍스트 처리 | `grep -rin`, `cut -d',' -f1,3`, `awk -F','`, `sed -i` |
 | 명령어 히스토리 | `history`, `!!`, `!번호` |
 | 시스템 상태 확인 | `uptime` |
 | 컨테이너 모드 | `docker run -d` (백그라운드 데몬) |
@@ -490,6 +547,7 @@ docker rm my-nginx
 2. `myapp` 폴더를 tar.gz와 zip 두 가지 포맷으로 압축하고, 다시 풀어보세요.
 3. `users.csv`에서 `cut`과 `awk`를 이용해 `(이름, 나이)` 목록만 뽑아보세요.
 4. `logs2` 디렉토리에서 `grep -rn -i "error"` 로 에러 로그 위치를 찾아보세요.
-5. `view`를 사용해서 users.csv를 읽기 전용으로 열고, `less`로 big.log를 살펴본 뒤, `uptime`으로 서버 상태를 확인해보세요.
+5. `sed -i`를 사용해 `users.csv`의 특정 도시 이름(예: Seoul)을 다른 도시(예: Jeju)로 치환해 보세요.
+6. `view`를 사용해서 users.csv를 읽기 전용으로 열고, `less`로 big.log를 살펴본 뒤, `uptime`으로 서버 상태를 확인해보세요.
 
 <br>
